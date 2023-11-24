@@ -1,12 +1,28 @@
-import React from 'react';
-import jsonCard from './Cardcontainer.json';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Card() {
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    // Fetch cards from the backend when the component mounts
+    const fetchCards = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/cards'); 
+        setCards(response.data);
+      } catch (error) {
+        console.error('Error fetching cards:', error);
+      }
+    };
+
+    fetchCards();
+  }, []); 
+
   return (
     <div className='w-full h-full'>
       <div className='mt-10'>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 gap-y-16 md:mx-20 rounded-sm mb-40">
-          {jsonCard.map((card, index) => (
+          {cards.map((card, index) => (
             <div key={index} className="bg-white shadow-2xl rounded-xl px-2">
               <div className='mt-4'>
                 <div className='flex gap-4'>

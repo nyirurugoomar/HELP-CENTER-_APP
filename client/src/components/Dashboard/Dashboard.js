@@ -4,12 +4,15 @@ import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import profile from "../assets/Avatal image.png";
 import { RxCross1 } from "react-icons/rx";
 import CreatedCard from "./CreatedCard";
-
+import axios from 'axios';
 function Dashboard() {
   const [nav, setNav] = useState(false);
   const [createBox, setCreateBox] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+ 
   const [profilePopUp, setProfilePopUp] = useState(false);
+  const [companyName, setCompanyName] = useState('');
+  const [companyService, setCompanyService] = useState('');
+  const [supportNumber, setSupportNumber] = useState('');
 
   const handleNav = () => {
     setNav(!nav);
@@ -21,6 +24,31 @@ function Dashboard() {
   const toggleProfilePopUp = () => {
     setProfilePopUp(!profilePopUp);
   };
+
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('title', companyName);
+      formData.append('service', companyService);
+      formData.append('ssdNo', supportNumber);
+  
+      const response = await axios.post('http://localhost:5000/cards', formData);
+  
+      if (response.status === 200) {
+        
+       
+        setCompanyName('');
+        setCompanyService('');
+        setSupportNumber('');
+      } else {
+       
+        console.error('Error creating card:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error creating card:', error.message);
+    }
+  };
+ 
 
   return (
     <>
@@ -75,35 +103,7 @@ function Dashboard() {
                 onClick={toggleCreateBox}
               />
               <div className="mx-20 mt-8 space-y-4">
-                <div className="ml-[10rem]">
-                  {selectedImage && (
-                    <div>
-                      <img
-                        alt=""
-                        width={"250px"}
-                        src={URL.createObjectURL(selectedImage)}
-                      />
-                      <br />
-                      <button onClick={() => setSelectedImage(null)}>
-                        Remove
-                      </button>
-                    </div>
-                  )}
-
-                  <br />
-                  <h1>Upload Company logo</h1>
-                  <br />
-
-                  <input
-                    className=""
-                    type="file"
-                    name="myImage"
-                    onChange={(event) => {
-                      console.log(event.target.files[0]);
-                      setSelectedImage(event.target.files[0]);
-                    }}
-                  />
-                </div>
+               
                 <div className="">
                   <h1 className="font-bold text-[17px]">Name of company</h1>
                   <input
@@ -112,6 +112,8 @@ function Dashboard() {
                     name=""
                     id=""
                     placeholder="Name Of Company"
+                    value={companyName}
+                     onChange={(e) => setCompanyName(e.target.value)}
                   />
                 </div>
                 <div className="">
@@ -122,6 +124,8 @@ function Dashboard() {
                     name=""
                     id=""
                     placeholder="Company Service"
+                    value={companyService}
+                    onChange={(e) => setCompanyService(e.target.value)}
                   />
                 </div>
                 <div className="">
@@ -132,12 +136,14 @@ function Dashboard() {
                     name=""
                     id=""
                     placeholder="Support Number"
+                    value={supportNumber}
+                    onChange={(e) => setSupportNumber(e.target.value)}
                   />
                 </div>
               </div>
 
               <div className="text-center p-4">
-                <button className="bg-[#1B1464] p-2 w-[119px] rounded-[9px] text-white font-bold">
+                <button className="bg-[#1B1464] p-2 w-[119px] rounded-[9px] text-white font-bold" onClick={handleSubmit}>
                   Save
                 </button>
               </div>

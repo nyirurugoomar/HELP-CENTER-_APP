@@ -7,7 +7,7 @@ const cors = require("cors");
 
 dotenv.config();
 
-const PORT = 3000;
+const PORT = 5000;
 const app = express();
 
 mongoose
