@@ -2,70 +2,30 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import profile from "../assets/Avatal image.png";
-import { RxCross1 } from "react-icons/rx";
+
 import CreatedCard from "./CreatedCard";
-import axios from 'axios';
+
 function Dashboard() {
-  const [nav, setNav] = useState(false);
-  const [createBox, setCreateBox] = useState(false);
- 
+  const [nav] = useState(false);
+
   const [profilePopUp, setProfilePopUp] = useState(false);
-  const [companyName, setCompanyName] = useState('');
-  const [companyService, setCompanyService] = useState('');
-  const [supportNumber, setSupportNumber] = useState('');
 
-  const handleNav = () => {
-    setNav(!nav);
-  };
-
-  const toggleCreateBox = () => {
-    setCreateBox(!createBox);
-  };
   const toggleProfilePopUp = () => {
     setProfilePopUp(!profilePopUp);
   };
 
-  const handleSubmit = async () => {
-    try {
-      const formData = new FormData();
-      formData.append('title', companyName);
-      formData.append('service', companyService);
-      formData.append('ssdNo', supportNumber);
-  
-      const response = await axios.post('http://localhost:5000/cards', formData);
-  
-      if (response.status === 200) {
-        
-       
-        setCompanyName('');
-        setCompanyService('');
-        setSupportNumber('');
-      } else {
-       
-        console.error('Error creating card:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error creating card:', error.message);
-    }
-  };
- 
-
   return (
     <>
       <div className="flex justify-between items-center h-20  px-10 bg-[#1B1464] ">
-      <Link to="/">
-      <h1 className="text-white font-bold text-[20px]">Logo|Help Center</h1>
-
-      </Link>
+        <Link to="/">
+          <h1 className="text-white font-bold text-[20px]">Logo|Help Center</h1>
+        </Link>
         <ul className="hidden md:flex gap-4">
           {/* <NavLink to="/contact"> */}
           <li className="p-2 text-20 text-[#1B1464] hover:text-black cursor-pointer mt-auto">
-            <button
-              className="rounded-2xl bg-white w-24 h-9"
-              onClick={toggleCreateBox}
-            >
-              Create
-            </button>
+            <Link to="/create">
+              <button className="rounded-2xl bg-white w-24 h-9">Create</button>
+            </Link>
           </li>
 
           <img
@@ -82,7 +42,7 @@ function Dashboard() {
                     Profile
                   </button>
                 </Link>
-                
+
                 <button className="block px-4 py-2 text-black font-bold hover:bg-gray-100 w-full">
                   Settings
                 </button>
@@ -93,63 +53,6 @@ function Dashboard() {
             </div>
           )}
         </ul>
-
-        {createBox && (
-          <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-40 flex justify-center items-center">
-            <div className="bg-white p-2 rounded-lg w-[655px] h-[499px]">
-              <RxCross1
-                className="block ml-auto cursor-pointer"
-                size={30}
-                onClick={toggleCreateBox}
-              />
-              <div className="mx-20 mt-8 space-y-4">
-               
-                <div className="">
-                  <h1 className="font-bold text-[17px]">Name of company</h1>
-                  <input
-                    className="border-[1px] w-[470px] h-[40px] border-black rounded-[28px] p-4"
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Name Of Company"
-                    value={companyName}
-                     onChange={(e) => setCompanyName(e.target.value)}
-                  />
-                </div>
-                <div className="">
-                  <h1 className="font-bold text-[17px]">Services</h1>
-                  <input
-                    className="border-[1px] w-[470px] h-[40px] border-black rounded-[28px] p-4"
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Company Service"
-                    value={companyService}
-                    onChange={(e) => setCompanyService(e.target.value)}
-                  />
-                </div>
-                <div className="">
-                  <h1 className="font-bold text-[17px]">Numbers</h1>
-                  <input
-                    className="border-[1px] w-[470px] h-[40px] border-black rounded-[28px] p-4"
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Support Number"
-                    value={supportNumber}
-                    onChange={(e) => setSupportNumber(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="text-center p-4">
-                <button className="bg-[#1B1464] p-2 w-[119px] rounded-[9px] text-white font-bold" onClick={handleSubmit}>
-                  Save
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
 
         <div className="block md:hidden mx-28">
           {nav ? (
@@ -203,7 +106,7 @@ function Dashboard() {
         </section>
       </div>
       {/* User content */}
-     <CreatedCard/>
+      <CreatedCard />
     </>
   );
 }
