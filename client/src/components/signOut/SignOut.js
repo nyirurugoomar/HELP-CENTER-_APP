@@ -9,12 +9,16 @@ function SignOut() {
   const handleRegister = async () => {
     try {
       const response = await axios.post("http://localhost:5000/register", {
-        email,
-        password,
+        email: email,
+        password: password,
       });
 
       // Check if registration was successful
       if (response.status === 201) {
+        console.log("register successfull");
+        setEmail("");
+        setPassword("");
+
         history.push("/dashboard");
       } else {
         console.error("Registration failed:", response.statusText);
@@ -34,10 +38,10 @@ function SignOut() {
           <div className="">
             <h1 className="font-bold text-[20px]">Email</h1>
             <input
+              className="border-[1px] w-[370px] h-[45px] border-black rounded-[9px] p-2"
               type="email"
               name=""
               id=""
-              className="border-[1px] w-[370px] h-[45px] border-black rounded-[9px] p-2"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -46,10 +50,10 @@ function SignOut() {
           <div className="">
             <h1 className="font-bold text-[20px]">Password</h1>
             <input
+              className="border-[1px] w-[370px] h-[45px] border-black rounded-[9px] p-2"
               type="password"
               name=""
               id=""
-              className="border-[1px] w-[370px] h-[45px] border-black rounded-[9px] p-2"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

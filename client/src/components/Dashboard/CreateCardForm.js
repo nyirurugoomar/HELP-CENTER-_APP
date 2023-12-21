@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { RxCross1 } from "react-icons/rx";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+
 function CreateCardForm() {
+  const history = useHistory();
+
   const [companyName, setCompanyName] = useState("");
   const [companyService, setCompanyService] = useState("");
   const [supportNumber, setSupportNumber] = useState("");
@@ -22,6 +25,9 @@ function CreateCardForm() {
         setCompanyName("");
         setCompanyService("");
         setSupportNumber("");
+
+        // Navigate to the home page after successful card creation
+        history.push("/");
       } else {
         console.error("Error creating card:", response.statusText);
       }
@@ -29,6 +35,7 @@ function CreateCardForm() {
       console.error("Error creating card:", error.message);
     }
   };
+
   return (
     <div className="fixed top-0 left-0 w-screen h-screen bg-Search-bg bg-cover flex justify-center items-center">
       <Link to="/dashboard">
