@@ -5,6 +5,12 @@ const User = require("../model/user.js");
 async function register(req, res) {
   try {
     const { username, password } = req.body;
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      res.status(400).json({
+        error: "Username already exists. Please choose a different one",
+      });
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ username, password: hashedPassword });
     await newUser.save();
