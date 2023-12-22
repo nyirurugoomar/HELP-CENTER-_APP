@@ -1,10 +1,34 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import google from "../assets/google.svg";
 import facebook from "../assets/facebook.svg";
 import line1 from "../assets/Line 1.svg";
 import line2 from "../assets/Line 2.svg";
+import axios from "axios";
 function SignIn() {
+  const history = useHistory();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/login", {
+        email: email,
+        password: password,
+      });
+      //check if login was successfull
+      if (response.status === 201) {
+        console.log("Login successfull");
+        setEmail("");
+        setPassword("");
+        history.push("/dashboard");
+      } else {
+        console.log("Login failed", response.statusText);
+      }
+    } catch (error) {
+      console.error("Login failed:", error.message);
+    }
+  };
   return (
     <div className="fixed top-0 left-0 w-screen h-screen  bg-Search-bg bg-cover flex justify-center items-center">
       <div className="bg-white p-5 rounded-lg w-[475px] h-[614px]">
@@ -54,6 +78,8 @@ function SignIn() {
               id=""
               className="border-[1px] w-[370px] h-[45px] border-black rounded-[9px] p-2"
               placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="">
@@ -64,6 +90,8 @@ function SignIn() {
               id=""
               className="border-[1px] w-[370px] h-[45px] border-black rounded-[9px] p-2"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <div className="text-right cursor-pointer">
               <h1 className="text-[#1B1464] font-bold ">Forget Password</h1>
@@ -72,7 +100,10 @@ function SignIn() {
         </div>
 
         <div className="text-center p-4">
-          <button className="bg-[#1B1464] p-4 w-[419px] rounded-[9px] text-white font-bold">
+          <button
+            className="bg-[#1B1464] p-4 w-[419px] rounded-[9px] text-white font-bold"
+            onClick={handleLogin}
+          >
             Sign In
           </button>
         </div>

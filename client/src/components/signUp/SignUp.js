@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-function SignOut() {
+function SignUp() {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -83,4 +83,4 @@ function SignOut() {
   );
 }
 
-export default SignOut;
+export default SignUp;

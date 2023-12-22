@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import UserProfile from "./components/Dashboard/UserProfile";
 import CreateCardForm from "./components/Dashboard/CreateCardForm";
 import SignIn from "./components/signIn/SignIn";
-import SignOut from "./components/signOut/SignOut";
+import SignOut from "./components/signUp/SignUp";
 
 function App() {
   return (

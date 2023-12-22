@@ -10,6 +10,7 @@ const {
   getUserProfile,
   updateUserProfile,
 } = require("./controllers/userProfile");
+const { searchController } = require("./controllers/Search.js");
 
 router.get("/cards", getCards);
 router.post("/cards", createCard);
@@ -19,5 +20,6 @@ router.post("/register", register);
 router.post("/login", login);
 router.get("/getUserProfile/:userId", getUserProfile);
 router.put("/updateUserProfile/:userId", updateUserProfile);
+router.get("/searchController", searchController);
 
 module.exports = router;
