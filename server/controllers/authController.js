@@ -7,7 +7,7 @@ async function register(req, res) {
     const { username, password } = req.body;
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      res.status(400).json({
+      return res.status(400).json({
         error: "Username already exists. Please choose a different one",
       });
     }

@@ -26,7 +26,7 @@ function CreateCardForm() {
         setCompanyService("");
         setSupportNumber("");
 
-        // Navigate to the home page after successful card creation
+        
         history.push("/");
       } else {
         console.error("Error creating card:", response.statusText);

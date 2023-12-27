@@ -7,23 +7,23 @@ import line2 from "../assets/Line 2.svg";
 import axios from "axios";
 function SignIn() {
   const history = useHistory();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     try {
       const response = await axios.post("http://localhost:5000/login", {
-        email: email,
+        username: username,
         password: password,
       });
       //check if login was successfull
-      if (response.status === 201) {
+      if (response.status === 200 && response.data.accessToken) {
         console.log("Login successfull");
-        setEmail("");
+        setUsername("");
         setPassword("");
         history.push("/dashboard");
       } else {
-        console.log("Login failed", response.statusText);
+        console.error("Login failed", response.statusText);
       }
     } catch (error) {
       console.error("Login failed:", error.message);
@@ -78,8 +78,8 @@ function SignIn() {
               id=""
               className="border-[1px] w-[370px] h-[45px] border-black rounded-[9px] p-2"
               placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="">

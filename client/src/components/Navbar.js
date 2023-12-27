@@ -29,11 +29,11 @@ const Navbar = () => {
           English <IoIosArrowDown size={17} className="mt-1" />
         </li>
 
-        <Link to="/dashboard">
+        {/* <Link to="/dashboard">
           <li className="p-4 text-20 text-white hover:text-blue cursor-pointer">
             Dashboard
           </li>
-        </Link>
+        </Link> */}
 
         {/* <NavLink to="/contact"> */}
         <li className="p-2 text-20 text-[#1B1464] hover:text-black cursor-pointer mt-auto">

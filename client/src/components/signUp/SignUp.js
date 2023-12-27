@@ -3,25 +3,24 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 function SignUp() {
   const history = useHistory();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleRegister = async () => {
     try {
       const response = await axios.post("http://localhost:5000/register", {
-        email: email,
+        username: username,
         password: password,
       });
 
       // Check if registration was successful
       if (response.status === 201) {
-        console.log("register successfull");
-        setEmail("");
+        console.log("Register successfull");
+        setUsername("");
         setPassword("");
-
         history.push("/dashboard");
       } else {
-        console.error("Registration failed:", response.statusText);
+        console.error("Registration failed", response.statusText);
       }
     } catch (error) {
       console.error("Registration failed:", error.message);
@@ -43,8 +42,8 @@ function SignUp() {
               name=""
               id=""
               placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="">
