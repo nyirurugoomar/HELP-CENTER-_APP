@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
-import { RxCross1 } from "react-icons/rx";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
@@ -26,7 +25,6 @@ function CreateCardForm() {
         setCompanyService("");
         setSupportNumber("");
 
-        
         history.push("/");
       } else {
         console.error("Error creating card:", response.statusText);
@@ -44,7 +42,6 @@ function CreateCardForm() {
         </button>
       </Link>
       <div className="bg-white p-2 rounded-lg w-[655px] h-[499px]">
-        <RxCross1 className="block ml-auto cursor-pointer" size={30} />
         <div className="mx-20 mt-8 space-y-4">
           <div className="">
             <h1 className="font-bold text-[17px]">Name of company</h1>

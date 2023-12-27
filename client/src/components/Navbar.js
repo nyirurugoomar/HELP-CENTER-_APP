@@ -19,8 +19,7 @@ const Navbar = () => {
         <li className="p-4 text-20 text-white hover:text-blue cursor-pointer">
           Partner
         </li>
-        {/* </NavLink> */}
-        {/* <NavLink to="/contact" > */}
+
         <li className="p-4 text-20 text-white hover:text-blue cursor-pointer">
           Contact
         </li>
@@ -29,13 +28,6 @@ const Navbar = () => {
           English <IoIosArrowDown size={17} className="mt-1" />
         </li>
 
-        {/* <Link to="/dashboard">
-          <li className="p-4 text-20 text-white hover:text-blue cursor-pointer">
-            Dashboard
-          </li>
-        </Link> */}
-
-        {/* <NavLink to="/contact"> */}
         <li className="p-2 text-20 text-[#1B1464] hover:text-black cursor-pointer mt-auto">
           <Link to="/signin">
             <button className="rounded-2xl bg-white w-24 h-9">Sign In</button>
