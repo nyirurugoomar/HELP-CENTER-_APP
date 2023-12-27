@@ -88,9 +88,6 @@ function Dashboard() {
       <div className="h-full w-full">
         <section className=" h-full py-20 bg-[#1B1464BD]">
           <div className="md:mx-40">
-            <h2 className="text-center text-white text-3xl mb-4 font-bold">
-              Welcome Again (name of user)
-            </h2>
             <div className=" flex mt-4">
               <input
                 className="p-4 md:w-full  rounded-l-[20px] border-[0px] focus:outline-none "

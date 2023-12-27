@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-
+import ImageUpload from "./ImageUpload";
 function CreateCardForm() {
   const history = useHistory();
 
   const [companyName, setCompanyName] = useState("");
   const [companyService, setCompanyService] = useState("");
   const [supportNumber, setSupportNumber] = useState("");
+  const [image, setImage] = useState("");
 
   const handleSubmit = async () => {
     try {
@@ -16,6 +17,7 @@ function CreateCardForm() {
         title: companyName,
         service: companyService,
         ssdNo: supportNumber,
+        image: image,
       });
 
       if (response.status === 200) {
@@ -24,6 +26,7 @@ function CreateCardForm() {
         setCompanyName("");
         setCompanyService("");
         setSupportNumber("");
+        setImage("");
 
         history.push("/");
       } else {
@@ -33,7 +36,6 @@ function CreateCardForm() {
       console.error("Error creating card:", error.message);
     }
   };
-
   return (
     <div className="fixed top-0 left-0 w-screen h-screen bg-Search-bg bg-cover flex justify-center items-center">
       <Link to="/dashboard">
@@ -41,8 +43,14 @@ function CreateCardForm() {
           <IoIosArrowBack size={20} className="mt-[3px]" /> Back
         </button>
       </Link>
-      <div className="bg-white p-2 rounded-lg w-[655px] h-[499px]">
+      <div className="bg-white p-2 rounded-lg w-[655px] h-[599px]">
         <div className="mx-20 mt-8 space-y-4">
+          <div>
+            <h1 className="font-bold text-[17px]">Company Logo</h1>
+            {/* images inputs */}
+            <ImageUpload />
+          </div>
+
           <div className="">
             <h1 className="font-bold text-[17px]">Name of company</h1>
             <input

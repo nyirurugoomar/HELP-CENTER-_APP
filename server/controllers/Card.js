@@ -12,9 +12,9 @@ const getCards = (req, res) => {
 
 //post
 const createCard = async (req, res) => {
-  const { title, service, ssdNo } = req.body;
+  const { title, service, ssdNo, image } = req.body;
 
-  if (!title || !service || !ssdNo === undefined) {
+  if (!title || !service || !ssdNo || !image === undefined) {
     return res
       .status(400)
       .json({ error: "missing or invalid fields in the request body" });
@@ -24,6 +24,7 @@ const createCard = async (req, res) => {
       title,
       service,
       ssdNo,
+      image,
     });
 
     const savedCard = await card.save();
@@ -42,6 +43,7 @@ const updateCard = (req, res) => {
         title: req.body.title,
         service: req.body.service,
         ssdNo: req.body.ssdNo,
+        image: req.body.image,
       },
     },
     { new: true }
