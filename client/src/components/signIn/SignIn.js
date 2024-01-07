@@ -10,6 +10,8 @@ function SignIn({ setIsAuthenticated }) {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+
   const handleLogin = async () => {
     try {
       const response = await axios.post("http://localhost:5000/login", {
@@ -25,10 +27,22 @@ function SignIn({ setIsAuthenticated }) {
         setIsAuthenticated(true);
         history.push("/dashboard");
       } else {
-        console.error("Login failed", response.statusText);
+        console.error("Login failed", response.data.error);
+        if (response.data.error === "Wrong username or user does not exist") {
+          setError("Wrong username. Please check your credentials.");
+        } else {
+          setError(
+            response.data.error || "An error occurred. Please try again."
+          );
+        }
       }
     } catch (error) {
       console.error("Login failed:", error.message);
+      if (error.message.includes("401")) {
+        setError("Wrong username. Please check your credentials.");
+      } else {
+        setError("An error occurred. Please try again later.");
+      }
     }
   };
   return (
@@ -99,6 +113,11 @@ function SignIn({ setIsAuthenticated }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <div className="text-red-500 text-center mt-4">
+                {error && <p>{error}</p>}{" "}
+                {/* Render status message if present */}
+              </div>
+
               <div className="text-right cursor-pointer">
                 <h1 className="text-[#1B1464] font-bold ">Forget Password</h1>
               </div>
