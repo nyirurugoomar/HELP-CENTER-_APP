@@ -34,7 +34,7 @@ const Navbar = () => {
           </Link>
         </li>
         <li className="p-2 text-20 text-[#1B1464] hover:text-black cursor-pointer mt-auto">
-          <Link to="/signout">
+          <Link to="/signup">
             <button className="rounded-2xl bg-white w-24 h-9">Sign Up</button>
           </Link>
         </li>

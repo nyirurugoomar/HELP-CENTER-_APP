@@ -32,7 +32,7 @@ function App() {
             )}
           />
           <Route
-            path="/signout"
+            path="/signup"
             render={(props) => (
               <SignUp {...props} setIsAuthenticated={setIsAuthenticated} />
             )}

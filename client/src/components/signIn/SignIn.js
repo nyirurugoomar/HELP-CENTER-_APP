@@ -11,9 +11,11 @@ function SignIn({ setIsAuthenticated }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     try {
+      setLoading(true);
       const response = await axios.post("http://localhost:5000/login", {
         username: username,
         password: password,
@@ -43,6 +45,8 @@ function SignIn({ setIsAuthenticated }) {
       } else {
         setError("An error occurred. Please try again later.");
       }
+    } finally {
+      setLoading(false); // Set loading to false when login process completes
     }
   };
   return (
@@ -50,6 +54,7 @@ function SignIn({ setIsAuthenticated }) {
       <div className="">
         <Navbar />
       </div>
+
       <div className="left-0 w-screen h-screen  bg-Search-bg bg-cover flex justify-center items-center">
         <div className="bg-white p-5 rounded-lg w-[475px] h-[614px]">
           <div className="text-center mt-6">
@@ -128,8 +133,9 @@ function SignIn({ setIsAuthenticated }) {
             <button
               className="bg-[#1B1464] p-4 w-[419px] rounded-[9px] text-white font-bold"
               onClick={handleLogin}
+              disabled={loading}
             >
-              Sign In
+              {loading ? "Signing In..." : "Sign In"}
             </button>
           </div>
           <h1>
