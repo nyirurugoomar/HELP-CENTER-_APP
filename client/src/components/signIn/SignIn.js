@@ -5,7 +5,16 @@ import facebook from "../assets/facebook.svg";
 import line1 from "../assets/Line 1.svg";
 import line2 from "../assets/Line 2.svg";
 import axios from "axios";
+import { css } from "@emotion/react";
+import { ClipLoader } from "react-spinners";
+
 import Navbar from "../Navbar";
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 function SignIn({ setIsAuthenticated }) {
   const history = useHistory();
   const [username, setUsername] = useState("");
@@ -15,6 +24,11 @@ function SignIn({ setIsAuthenticated }) {
 
   const handleLogin = async () => {
     try {
+      // Check if username or password is empty
+      if (!username.trim() || !password.trim()) {
+        setError("Please enter both username and password.");
+        return;
+      }
       setLoading(true);
       const response = await axios.post("http://localhost:5000/login", {
         username: username,
@@ -25,7 +39,6 @@ function SignIn({ setIsAuthenticated }) {
         console.log("Login successfull");
         setUsername("");
         setPassword("");
-
         setIsAuthenticated(true);
         history.push("/dashboard");
       } else {
@@ -46,8 +59,12 @@ function SignIn({ setIsAuthenticated }) {
         setError("An error occurred. Please try again later.");
       }
     } finally {
-      setLoading(false); // Set loading to false when login process completes
+      setLoading(false);
     }
+    setTimeout(() => {
+      // After the operation is complete, set loading back to false
+      setLoading(false);
+    }, 60000);
   };
   return (
     <>
@@ -56,7 +73,7 @@ function SignIn({ setIsAuthenticated }) {
       </div>
 
       <div className="left-0 w-screen h-screen  bg-Search-bg bg-cover flex justify-center items-center">
-        <div className="bg-white p-5 rounded-lg w-[475px] h-[614px]">
+        <div className="bg-white p-5 rounded-lg w-[475px] h-[644px]">
           <div className="text-center mt-6">
             <h1 className="text-[30px] font-bold">Welcome Back</h1>
             <p className="text-[#94a3b8] text-[23px]">
@@ -118,9 +135,8 @@ function SignIn({ setIsAuthenticated }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <div className="text-red-500 text-center mt-4">
+              <div className="text-red-500 text-center  text-sm">
                 {error && <p>{error}</p>}{" "}
-                {/* Render status message if present */}
               </div>
 
               <div className="text-right cursor-pointer">
@@ -135,15 +151,17 @@ function SignIn({ setIsAuthenticated }) {
               onClick={handleLogin}
               disabled={loading}
             >
-              {loading ? "Signing In..." : "Sign In"}
+              {loading ? (
+                <ClipLoader color="#ffffff" css={override} size={30} />
+              ) : (
+                "Sign In"
+              )}
             </button>
           </div>
           <h1>
             Rigister for new Account{" "}
-            <Link to="/signout">
-              <span className="text-[#1B1464] font-bold underline">
-                SignOut
-              </span>
+            <Link to="/signup">
+              <span className="text-[#1B1464] font-bold underline">SignUp</span>
             </Link>
           </h1>
         </div>
